@@ -70,7 +70,8 @@ def sent2tokens(sent):
         tokens.append(sent[i][0])
     return tokens
 jomle = ""
-for arg in sys.argv:
+print(sys.argv)
+for arg in sys.argv[1:]:
     jomle += arg + " "
 def IOB_tagger(jomle):
     iob_tagger = pycrfsuite.Tagger()
@@ -79,12 +80,6 @@ def IOB_tagger(jomle):
     sent = pos_tag_correct(pos_tagger.tag(word_tokenize(jomle)))
     IOB_tags = iob_tagger.tag(sent2features(sent))
     tokens = sent2tokens(sent)
-    
+
     for i in range(len(tokens)):
         print( tokens[i]+ " : "+ IOB_tags[i])
-    
-   
-
-
-if __name__ == "__main__":
-    pass

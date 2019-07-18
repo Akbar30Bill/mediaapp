@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 });
 app.post('/', function(req, res){
   let text = req.body.text;
-  const pythonProcess = spawn('python',["/src/IOB-tagger.py", text]);
+  const pythonProcess = spawn('python',["/src/py.py", text]);
   pythonProcess.stdout.on('data', (data) => {
     res.send(data);
   });
