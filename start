@@ -1,0 +1,8 @@
+!#/bin/bash
+
+pip3 install python-crfsuite --user
+pip3 install hazm --user
+
+npm install
+
+node app.js
