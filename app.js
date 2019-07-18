@@ -16,8 +16,10 @@ app.get('/', function(req, res){
 });
 app.post('/', function(req, res){
   let text = req.body.text;
-  const pythonProcess = spawn('python',["path/to/script.py", arg1, arg2, ...]);
-  res.send()
+  const pythonProcess = spawn('python',["/src/IOB-tagger.py", text]);
+  pythonProcess.stdout.on('data', (data) => {
+    res.send(data);
+  });
 });
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
