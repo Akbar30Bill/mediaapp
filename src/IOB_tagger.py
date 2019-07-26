@@ -2,8 +2,9 @@ from __future__ import unicode_literals
 from hazm import *
 import pycrfsuite
 import sys
-IOB_MODEL_ADDRESS = 'resources/30BILLNER.model'
-POS_MODEL_ADDRESS = 'resources/postagger.model'
+import pprint
+IOB_MODEL_ADDRESS = '/Users/akbar30bill/Codes/mediaApp/src/resources/30BILLNER.model'
+POS_MODEL_ADDRESS = '/Users/akbar30bill/Codes/mediaApp/src/resources/postagger.model'
 def pos_tag_correct(sent):
     data = sent
     for i in range(len(sent)):
@@ -69,10 +70,7 @@ def sent2tokens(sent):
     for i in range(len(sent)) :
         tokens.append(sent[i][0])
     return tokens
-jomle = ""
-print(sys.argv)
-for arg in sys.argv[1:]:
-    jomle += arg + " "
+
 def IOB_tagger(jomle):
     iob_tagger = pycrfsuite.Tagger()
     iob_tagger.open(IOB_MODEL_ADDRESS)
@@ -80,6 +78,7 @@ def IOB_tagger(jomle):
     sent = pos_tag_correct(pos_tagger.tag(word_tokenize(jomle)))
     IOB_tags = iob_tagger.tag(sent2features(sent))
     tokens = sent2tokens(sent)
-
+    t = []
     for i in range(len(tokens)):
-        print( tokens[i]+ " : "+ IOB_tags[i])
+        t.append(tokens[i]+ " : "+ IOB_tags[i])
+    print(*t, sep='\n')
