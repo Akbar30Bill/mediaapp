@@ -10,17 +10,17 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text({ type: 'text/html' }))
 
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname + '/src/index.html'));
 });
 app.post('/', function(req, res){
   let text = req.body.text;
-  console.log(text)
   let pythonProcess = spawn('python3',["src/py.py", text]);
   pythonProcess.stdout.on('data', (data) => {
-    console.log(data)
-    res.send(data);
+    console.log(data.toString())
+    res.json(data.toString().replace(/\n/g, ', '));
   });
 });
 
